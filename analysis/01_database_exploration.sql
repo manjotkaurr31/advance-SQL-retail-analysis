@@ -139,15 +139,15 @@ WHERE object_id = OBJECT_ID('bronze.crm_cust_info');
 SELECT COUNT(*) AS total_rows
 FROM bronze.crm_cust_info;
 
--- 2.checking for missing values
+-- 2.checking for missing values. (number of aggregates being equal to row count prove absence of NULLs)
 SELECT
     COUNT(*) AS total_rows,
-    COUNT(cst_id) AS non_null_cst_id,
-    COUNT(cst_key) AS non_null_cst_key,
-    COUNT(cst_firstname) AS non_null_firstname
+    COUNT(cst_id) AS number_of_cst_id,
+    COUNT(cst_key) AS number_of_cst_key,
+    COUNT(cst_firstname) AS number_of_firstname
 FROM bronze.crm_cust_info;
 
--- 3.checking for duplicate values
+-- 3.checking for duplicate values (can be checkedd for various columns)
 SELECT
     cst_id,
     COUNT(*) AS duplicates
@@ -193,7 +193,7 @@ GO
 SELECT COUNT(*) AS total_rows
 FROM silver.crm_cust_info;
 
--- 2.checking for missing values
+-- 2.checking for missing values (expected: number of aggregates equal to row count since data in silver layer is clean)
 SELECT
     COUNT(*) AS total_rows,
     COUNT(cst_id) AS non_null_id,
@@ -201,7 +201,7 @@ SELECT
     COUNT(cst_firstname) AS non_null_firstname
 FROM silver.crm_cust_info;
 
--- 3.checking for duplicate data
+-- 3.checking for duplicate data (expected: empty table since data in silver layer is clean)
 SELECT
     cst_id,
     COUNT(*) AS duplicates
@@ -209,7 +209,7 @@ FROM silver.crm_cust_info
 GROUP BY cst_id
 HAVING COUNT(*)>1;
 
--- 4.checking for data validation/sanity (expected: empty tables since data must already be clean in silver layer)
+-- 4.checking for data validation/sanity (expected: empty tables since data in silver layer is clean)
 -- negative product cost
 SELECT *
 FROM silver.crm_prd_info
@@ -249,7 +249,7 @@ SELECT *
 FROM silver.erp_px_cat_g1v2
 WHERE cat IS NULL
    OR subcat IS NULL
-   OR TRIM(cat)= ''
+   OR TRIM(cat)=''
    OR TRIM(subcat)= '';
 GO
 
@@ -259,7 +259,7 @@ GO
 SELECT COUNT(*) AS total_customers
 FROM gold.dim_customers;
 
--- 2.checking for missing values
+-- 2.checking for missing values (expected: empty tables since source layer of gold i.e silver has clean data)
 SELECT *
 FROM gold.fact_sales
 WHERE customer_key IS NULL
