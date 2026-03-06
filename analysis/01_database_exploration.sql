@@ -114,11 +114,15 @@ GO
 -- Type of indexing followed (depends upon presence or absence of constraints)
 SELECT
     name,
+    type,
     type_desc,
-    is_unique
+    is_primary_key,
+    is_unique,
+    is_unique_constraint,
+    is_disabled,
+    has_filter
 FROM sys.indexes
-WHERE object_id=OBJECT_ID('bronze.crm_cust_info');
-GO
+WHERE object_id = OBJECT_ID('bronze.crm_cust_info');
 
 /* moving towards data quality inspection*/
 
