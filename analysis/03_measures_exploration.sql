@@ -47,19 +47,19 @@ GO
 
 -- 8. Average revenue generated per order
 SELECT 
-    SUM(sales_amount)* 1.0/COUNT(DISTINCT order_number) AS avg_order_value
+    CAST(SUM(sales_amount)*1.0 /COUNT(DISTINCT order_number)AS numeric(10,2)) AS avg_order_value
 FROM gold.fact_sales;
 GO
 
--- 9. Average number of items purchased in a single order
+-- 9. Average number of items purchased in a single order (per order)
 SELECT 
-    SUM(quantity)*1.0/COUNT(DISTINCT order_number) AS avg_items_per_order
+    CAST(SUM(quantity)*1.0/COUNT(DISTINCT order_number)AS numeric(10,2)) AS avg_items_per_order
 FROM gold.fact_sales;
 GO
 
 -- 10. Average revenue generated per customer
 SELECT 
-    SUM(sales_amount)*1.0 /COUNT(DISTINCT customer_key) AS revenue_per_customer
+    CAST(SUM(sales_amount)*1.0 /COUNT(DISTINCT customer_key)AS numeric(10,2)) AS revenue_per_customer
 FROM gold.fact_sales;
 GO
 
@@ -75,14 +75,7 @@ SELECT
 FROM gold.fact_sales;
 GO
 
--- 13. Number of orders that were shipped after the due date
-SELECT 
-    COUNT(*) AS late_orders
-FROM gold.fact_sales
-WHERE shipping_date>due_date;
-GO
-
--- 14. Combined KPI report (all key metrics in one result table)
+-- 13. Combined KPI report (all key metrics in one result table)
 SELECT 'Total Sales' AS metric, SUM(sales_amount)AS answer FROM gold.fact_sales
 UNION ALL
 SELECT 'Total Quantity', SUM(quantity)FROM gold.fact_sales
