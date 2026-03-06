@@ -1,3 +1,9 @@
+/*
+             - Overall business YoY growth
+             - Monthly business momentum
+             - Product performance
+             - Customer performance
+*/
 -- Displays year-over-year growth in total business revenue.
 WITH yearly_sales AS (
 SELECT
@@ -70,7 +76,7 @@ WHEN current_sales < LAG(current_sales) OVER (PARTITION BY product_key ORDER BY 
 ELSE 'No Change'
 END AS yoy_trend
 FROM yearly_product_sales
-ORDER BY product_name, order_year;
+ORDER BY product_key, order_year;
 GO
 
 -- Displays yearly customer spending and its change compared with the previous year.
