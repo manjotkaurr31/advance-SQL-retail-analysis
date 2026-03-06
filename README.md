@@ -20,7 +20,7 @@ The goal is to transform **raw retail transaction data** into meaningful **busin
 ---
 
 # 🗂️ Project Structure
-
+```text
 advanced-sql-retail-analysis
 │
 ├── analysis
@@ -56,7 +56,7 @@ advanced-sql-retail-analysis
 │   └── init_db.sql
 │
 └── README.md
-
+```
 ---
 
 # 🏗️ Data Architecture
