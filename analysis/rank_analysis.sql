@@ -2,89 +2,68 @@
    top and bottom performers across products, customers, categories and counntries. 
 */
 
--- 1. Top 5 products generating the highest revenue
-SELECT TOP 5
-    p.product_name,
-    SUM(f.sales_amount) AS total_revenue
-FROM gold.fact_sales f
-JOIN gold.dim_products p
-    ON p.product_key = f.product_key
-GROUP BY p.product_name
-ORDER BY total_revenue DESC;
-GO
-
--- 2. Top 5 products sold by quantity
-SELECT TOP 5
-    p.product_name,
-    SUM(f.quantity) AS total_quantity_sold
-FROM gold.fact_sales f
-JOIN gold.dim_products p
-    ON p.product_key = f.product_key
-GROUP BY p.product_name
-ORDER BY total_quantity_sold DESC;
-GO
-
--- 3. Bottom 5 products generating the least revenue
-SELECT TOP 5
-    p.product_name,
-    SUM(f.sales_amount) AS total_revenue
-FROM gold.fact_sales f
-JOIN gold.dim_products p
-    ON p.product_key = f.product_key
-GROUP BY p.product_name
-ORDER BY total_revenue ASC;
-GO
-
--- 4. Top 10 customers generating the highest revenue
-SELECT TOP 10
-    c.customer_key,
-    c.first_name,
-    c.last_name,
-    SUM(f.sales_amount) AS total_revenue
-FROM gold.fact_sales f
-JOIN gold.dim_customers c
-    ON c.customer_key = f.customer_key
-GROUP BY 
-    c.customer_key,
-    c.first_name,
-    c.last_name
-ORDER BY total_revenue DESC;
-GO
-
--- 5. Customers with the fewest orders placed
-SELECT TOP 5
-    c.customer_key,
-    c.first_name,
-    c.last_name,
-    COUNT(DISTINCT f.order_number) AS total_orders
-FROM gold.fact_sales f
-JOIN gold.dim_customers c
-    ON c.customer_key = f.customer_key
-GROUP BY 
-    c.customer_key,
-    c.first_name,
-    c.last_name
-ORDER BY total_orders ASC;
-GO
-
--- 6. Top product categories generating the highest revenue
+-- Displays product revenue ranking across all products.
 SELECT
-    p.category,
-    SUM(f.sales_amount) AS total_revenue
+p.product_name,
+SUM(f.sales_amount) AS total_revenue,
+RANK() OVER (ORDER BY SUM(f.sales_amount) DESC) AS revenue_rank
 FROM gold.fact_sales f
 JOIN gold.dim_products p
-    ON p.product_key = f.product_key
+ON p.product_key = f.product_key
+GROUP BY p.product_name
+ORDER BY revenue_rank;
+GO
+
+-- Displays product demand ranking based on quantity sold.
+SELECT
+p.product_name,
+SUM(f.quantity) AS total_quantity_sold,
+RANK() OVER (ORDER BY SUM(f.quantity) DESC) AS quantity_rank
+FROM gold.fact_sales f
+JOIN gold.dim_products p
+ON p.product_key = f.product_key
+GROUP BY p.product_name
+ORDER BY quantity_rank;
+GO
+
+-- Displays customer revenue ranking across all customers.
+SELECT
+c.customer_key,
+c.first_name,
+c.last_name,
+SUM(f.sales_amount) AS total_revenue,
+RANK() OVER (ORDER BY SUM(f.sales_amount) DESC) AS customer_rank
+FROM gold.fact_sales f
+JOIN gold.dim_customers c
+ON c.customer_key = f.customer_key
+GROUP BY
+c.customer_key,
+c.first_name,
+c.last_name
+ORDER BY customer_rank;
+GO
+
+-- Displays category revenue ranking across product categories.
+SELECT
+p.category,
+SUM(f.sales_amount) AS total_revenue,
+RANK() OVER (ORDER BY SUM(f.sales_amount) DESC) AS category_rank
+FROM gold.fact_sales f
+JOIN gold.dim_products p
+ON p.product_key = f.product_key
 GROUP BY p.category
-ORDER BY total_revenue DESC;
+ORDER BY category_rank;
 GO
 
--- 7. Top countries generating the highest revenue
+-- Displays country revenue ranking across all customer countries.
 SELECT
-    c.country,
-    SUM(f.sales_amount) AS total_revenue
+c.country,
+SUM(f.sales_amount) AS total_revenue,
+RANK() OVER (ORDER BY SUM(f.sales_amount) DESC) AS country_rank
 FROM gold.fact_sales f
 JOIN gold.dim_customers c
-    ON c.customer_key = f.customer_key
+ON c.customer_key = f.customer_key
 GROUP BY c.country
-ORDER BY total_revenue DESC;
+ORDER BY country_rank;
 GO
+
