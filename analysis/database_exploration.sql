@@ -583,6 +583,13 @@ WHERE object_id = OBJECT_ID('gold.fact_sales');
 GO
 
 /* moving towards data quality inspection*/
+
+/*
+    -data volume check: counts number of rows to inspect table size &if the load was successsful
+    -missing values/NULLs check: to inspect if data is complete
+    -duplicate rows check: to inspect issues during ingestion such as interrupted loading or lack of deduplication in the source data.
+    -sanity check: to inspect data makes logical sense such as prices are not negative, dates follow correct order, quantities are non-negative etc.
+*/
   
 /*bronze layer*/
 -- following checks can be applied to all the tables in bronze layer
