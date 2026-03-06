@@ -41,9 +41,6 @@ advanced-sql-retail-analysis
 │   ├── bronze
 │   ├── silver
 │   └── gold
-│       ├── dim_customers.csv
-│       ├── dim_products.csv
-│       └── fact_sales.csv
 │
 ├── results
 │   ├── customer_report.csv
