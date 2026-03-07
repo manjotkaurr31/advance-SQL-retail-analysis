@@ -82,23 +82,6 @@ GROUP BY p.subcategory
 ORDER BY pct_revenue DESC;
 GO
 
--- Displays each customer's percentage contribution to total revenue.
-SELECT
-c.customer_key,
-c.first_name,
-c.last_name,
-SUM(f.sales_amount) AS total_revenue,
-100.0 * SUM(f.sales_amount)/SUM(SUM(f.sales_amount)) OVER () AS pct_revenue
-FROM gold.fact_sales f
-LEFT JOIN gold.dim_customers c
-ON c.customer_key = f.customer_key
-GROUP BY
-c.customer_key,
-c.first_name,
-c.last_name
-ORDER BY pct_revenue DESC;
-GO
-
 -- Displays the percentage share of items sold by country.
 SELECT
 c.country,
