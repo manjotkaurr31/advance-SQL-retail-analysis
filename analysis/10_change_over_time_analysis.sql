@@ -30,20 +30,7 @@ order_year,
 order_quarter;
 GO
 
--- Displays monthly sales and customer activity to analyze chronological business trends.
-SELECT
-DATETRUNC(MONTH, order_date) AS order_month,
-SUM(sales_amount) AS monthly_sales,
-SUM(quantity) AS units_sold,
-COUNT(order_number) AS total_orders,
-COUNT(DISTINCT customer_key) AS active_customers
-FROM gold.fact_sales
-WHERE order_date IS NOT NULL
-GROUP BY DATETRUNC(MONTH, order_date)
-ORDER BY order_month;
-GO
-
--- Displays aggregated sales performance by calendar month to observe seasonal patterns.
+-- Displays aggregated sales performance by month
 SELECT
 MONTH(order_date) AS month_of_year,
 DATENAME(MONTH, order_date) AS month_name,
@@ -78,16 +65,5 @@ COUNT(DISTINCT f.product_key) AS unique_products_sold
 FROM gold.fact_sales f
 WHERE f.order_date IS NOT NULL
 GROUP BY DATETRUNC(MONTH, f.order_date)
-ORDER BY order_month;
-GO
-
--- Displays changes in order fulfillment timelines based on shipping and due dates.
-SELECT
-DATETRUNC(MONTH, order_date) AS order_month,
-AVG(DATEDIFF(day, order_date, shipping_date)) AS avg_shipping_days,
-AVG(DATEDIFF(day, order_date, due_date)) AS avg_due_days
-FROM gold.fact_sales
-WHERE order_date IS NOT NULL
-GROUP BY DATETRUNC(MONTH, order_date)
 ORDER BY order_month;
 GO
