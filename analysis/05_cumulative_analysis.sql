@@ -1,4 +1,4 @@
--- Displays cumulative revenue growth over time using a running total of monthly sales.
+-- cumulative revenue growth over time using a running total of monthly sales
 SELECT
 order_month,
 total_sales,
@@ -15,7 +15,7 @@ GROUP BY DATETRUNC(MONTH,order_date)
 ORDER BY order_month;
 GO
 
--- Displays cumulative order volume over time using a running total of monthly orders.
+-- cumulative order volume over time using a running total of monthly orders
 SELECT
 order_month,
 total_orders,
@@ -32,24 +32,7 @@ GROUP BY DATETRUNC(MONTH, order_date)
 ORDER BY order_month;
 GO
 
--- Displays cumulative product demand over time using a running total of units sold.
-SELECT
-order_month,
-total_units_sold,
-SUM(total_units_sold) OVER (ORDER BY order_month) AS running_total_units_sold
-FROM
-(
-SELECT
-DATETRUNC(MONTH, order_date) AS order_month,
-SUM(quantity) AS total_units_sold
-FROM gold.fact_sales
-WHERE order_date IS NOT NULL
-GROUP BY DATETRUNC(MONTH, order_date)
-) t
-ORDER BY order_month;
-GO
-
--- Displays a moving average of monthly sales to smooth short-term revenue fluctuations.
+-- moving average of monthly sales
 SELECT
 order_month,
 total_sales,
