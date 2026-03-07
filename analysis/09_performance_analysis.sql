@@ -2,7 +2,6 @@
              - Overall business YoY growth
              - Monthly business momentum
              - Product performance
-             - Customer performance
 */
 -- Displays year-over-year growth in total business revenue.
 WITH yearly_sales AS (
@@ -77,26 +76,4 @@ ELSE 'No Change'
 END AS yoy_trend
 FROM yearly_product_sales
 ORDER BY product_key, order_year;
-GO
-
--- Displays yearly customer spending and its change compared with the previous year.
-WITH yearly_customer_sales AS (
-SELECT
-YEAR(order_date) AS order_year,
-customer_key,
-SUM(sales_amount) AS total_sales
-FROM gold.fact_sales
-WHERE order_date IS NOT NULL
-GROUP BY
-YEAR(order_date),
-customer_key
-)
-SELECT
-order_year,
-customer_key,
-total_sales,
-LAG(total_sales) OVER (PARTITION BY customer_key ORDER BY order_year) AS previous_year_sales,
-total_sales - LAG(total_sales) OVER (PARTITION BY customer_key ORDER BY order_year) AS yoy_change
-FROM yearly_customer_sales
-ORDER BY customer_key, order_year;
 GO
