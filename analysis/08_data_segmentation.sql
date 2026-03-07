@@ -1,8 +1,7 @@
--- Displays the distribution of products across predefined cost ranges.
+-- Displays the distribution of products across predefined cost ranges
 WITH product_segments AS (
 SELECT
 product_key,
-product_name,
 cost,
 CASE
 WHEN cost < 100 THEN 'Below 100'
@@ -20,7 +19,7 @@ GROUP BY cost_range
 ORDER BY total_products DESC;
 GO
 
--- Displays the number of customers within each spending-based segment.
+-- Displays the number of customers within each spending-based segment
 WITH customer_spending AS (
 SELECT
 c.customer_key,
@@ -50,48 +49,47 @@ GROUP BY customer_segment
 ORDER BY total_customers DESC;
 GO
 
--- Displays the distribution of orders across different order value ranges.
+-- Displays the distribution of orders across different order value ranges
+WITH order_segments AS (
+    SELECT
+        order_number,
+        CASE
+            WHEN sales_amount < 100 THEN 'Small Order'
+            WHEN sales_amount BETWEEN 100 AND 500 THEN 'Medium Order'
+            WHEN sales_amount BETWEEN 500 AND 1000 THEN 'Large Order'
+            ELSE 'Very Large Order'
+        END AS order_segment
+    FROM gold.fact_sales
+)
 SELECT
-CASE
-WHEN sales_amount < 100 THEN 'Small Order'
-WHEN sales_amount BETWEEN 100 AND 500 THEN 'Medium Order'
-WHEN sales_amount BETWEEN 500 AND 1000 THEN 'Large Order'
-ELSE 'Very Large Order'
-END AS order_segment,
-COUNT(order_number) AS total_orders
-FROM gold.fact_sales
-GROUP BY
-CASE
-WHEN sales_amount < 100 THEN 'Small Order'
-WHEN sales_amount BETWEEN 100 AND 500 THEN 'Medium Order'
-WHEN sales_amount BETWEEN 500 AND 1000 THEN 'Large Order'
-ELSE 'Very Large Order'
-END
+    order_segment,
+    COUNT(order_number) AS total_orders
+FROM order_segments
+GROUP BY order_segment
 ORDER BY total_orders DESC;
 GO
 
--- Displays customer distribution across age groups.
+-- Displays customer distribution across age groups
+WITH customer_age_groups AS (
+    SELECT
+        customer_key,
+        CASE
+            WHEN DATEDIFF(year, birthdate, GETDATE()) < 25 THEN 'Under 25'
+            WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 25 AND 40 THEN '25-40'
+            WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 40 AND 60 THEN '40-60'
+            ELSE '60+'
+        END AS age_group
+    FROM gold.dim_customers
+    WHERE birthdate IS NOT NULL)
 SELECT
-CASE
-WHEN DATEDIFF(year, birthdate, GETDATE()) < 25 THEN 'Under 25'
-WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 25 AND 40 THEN '25-40'
-WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 40 AND 60 THEN '40-60'
-ELSE '60+'
-END AS age_group,
-COUNT(customer_key) AS total_customers
-FROM gold.dim_customers
-WHERE birthdate IS NOT NULL
-GROUP BY
-CASE
-WHEN DATEDIFF(year, birthdate, GETDATE()) < 25 THEN 'Under 25'
-WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 25 AND 40 THEN '25-40'
-WHEN DATEDIFF(year, birthdate, GETDATE()) BETWEEN 40 AND 60 THEN '40-60'
-ELSE '60+'
-END
+    age_group,
+    COUNT(customer_key) AS total_customers
+FROM customer_age_groups
+GROUP BY age_group
 ORDER BY total_customers DESC;
 GO
 
--- Displays customer segmentation into spending quartiles using NTILE.
+-- Displays customer segmentation into spending quartiles using NTILE
 WITH customer_total_spending AS (
 SELECT
 customer_key,
