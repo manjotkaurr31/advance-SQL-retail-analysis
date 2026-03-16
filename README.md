@@ -79,7 +79,7 @@ This layer supports **analytical queries, reporting, and KPI generation**.
 
 ---
 
-# 📊 Analytical Modules
+# Analytical Modules
 
 The `analysis` folder contains SQL modules focusing on different analytical perspectives.
 
