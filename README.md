@@ -1,25 +1,25 @@
-# 📊 Advanced SQL Retail Analysis
+# SQL Analysis - Retail Data
 
-## 🧾 Project Overview
+## Project Overview
 
 This project demonstrates **advanced SQL techniques** for analyzing retail sales data.  
 It simulates a modern analytics workflow using a **layered data architecture** and multiple analytical modules.
 
 The project explores:
 
-- 🔎 database exploration  
-- 🧩 dimensional analysis  
-- 📈 cumulative metrics  
-- 🏆 ranking and performance analysis  
-- 🧠 segmentation  
-- 👥 customer analytics  
-- 📦 product analytics  
+-  database exploration  
+-  dimensional analysis  
+-  cumulative metrics  
+-  ranking and performance analysis  
+-  segmentation  
+-  customer analytics  
+-  product analytics  
 
 The goal is to transform **raw retail transaction data** into meaningful **business insights using SQL**.
 
 ---
 
-# 🗂️ Project Structure
+# Project Structure
 ```text
 advanced-sql-retail-analysis
 │
@@ -56,7 +56,7 @@ advanced-sql-retail-analysis
 ```
 ---
 
-# 🏗️ Data Architecture
+# Data Architecture
 
 This project follows a **Medallion Architecture** commonly used in modern data platforms.
 
@@ -71,9 +71,9 @@ Business-ready dimensional model used for analytics.
 
 Tables in the **Gold Layer**:
 
-- 👥 `dim_customers`
-- 📦 `dim_products`
-- 💰 `fact_sales`
+-  `dim_customers`
+-  `dim_products`
+-  `fact_sales`
 
 This layer supports **analytical queries, reporting, and KPI generation**.
 
@@ -83,43 +83,43 @@ This layer supports **analytical queries, reporting, and KPI generation**.
 
 The `analysis` folder contains SQL modules focusing on different analytical perspectives.
 
-### 🔍 Database Exploration
+### Database Exploration
 Explores schema structure and table contents.
 
-### 🧩 Dimension Exploration
+### Dimension Exploration
 Analyzes categorical fields such as customers, products, and categories.
 
-### 📏 Measures Exploration
+### Measures Exploration
 Investigates key metrics like sales, quantity, and revenue.
 
-### 📐 Magnitude Analysis
+### Magnitude Analysis
 Quantifies the scale of business activity across business dimensions.
 
-### 📈 Cumulative Analysis
+### Cumulative Analysis
 Calculates running totals and moving averages for key metrics.
 
-### 🏆 Rank Analysis
+### Rank Analysis
 Ranks products, customers, and categories based on performance.
 
-### 🧮 Part-to-Whole Analysis
+### Part-to-Whole Analysis
 Measures the percentage contribution of segments to overall totals.
 
-### 🧠 Data Segmentation
+### Data Segmentation
 Groups customers and products into meaningful behavioral segments.
 
-### 🚀 Performance Analysis
+### Performance Analysis
 Evaluates **Year-over-Year (YoY)** and **Month-over-Month (MoM)** business performance.
 
-### ⏳ Change Over Time Analysis
+### Change Over Time Analysis
 Analyzes trends, seasonality, and growth patterns in business activity.
 
 ---
 
-# 📑 Reporting Views
+# Reporting Views
 
 Two analytical reporting views summarize business performance.
 
-### 👥 Customer Report
+### Customer Report
 
 Provides customer-level metrics including:
 
@@ -134,7 +134,7 @@ Provides customer-level metrics including:
 
 ---
 
-### 📦 Product Report
+### Product Report
 
 Provides product-level performance metrics such as:
 
@@ -150,7 +150,7 @@ Provides product-level performance metrics such as:
 
 ---
 
-# 📁 Results
+# Results
 
 Generated reports are exported to the `results` folder:
 
@@ -161,24 +161,24 @@ These files contain **aggregated analytical outputs** derived from SQL views.
 
 ---
 
-# ⚙️ Technologies Used
+# Technologies Used
 
-- 🗄️ SQL Server  
-- 💻 T-SQL  
-- 🧱 Dimensional Modeling  
-- 📊 Analytical SQL (Window Functions, Aggregations, CTEs)
+-  SQL Server  
+-  T-SQL  
+-  Dimensional Modeling  
+-  Analytical SQL (Window Functions, Aggregations, CTEs)
 
 ---
 
-# ▶️ How to Run the Project
+# How to Run the Project
 
-### 1️⃣ Initialize the database
+### Initialize the database
 
 Run:
 
 scripts/init_db.sql
 
-### 2️⃣ Build the data layers
+### Build the data layers
 
 Run:
 
@@ -186,11 +186,11 @@ scripts/bronze_01.sql
 scripts/silver_02.sql  
 scripts/gold_03.sql  
 
-### 3️⃣ Run analytical queries
+### Run analytical queries
 
 Execute SQL files inside the **analysis** directory.
 
-### 4️⃣ Generate reports
+### Generate reports
 
 Run:
 
@@ -199,7 +199,7 @@ analysis/product_report.sql
 
 ---
 
-# 🧠 Key SQL Concepts Demonstrated
+# Key SQL Concepts Demonstrated
 
 - Common Table Expressions (CTEs)
 - Window Functions
@@ -211,6 +211,6 @@ analysis/product_report.sql
 
 ---
 
-# 🎯 Project Purpose
+# Project Purpose
 
 This project demonstrates how SQL can transform **transactional retail data** into **structured analytical insights** using industry-style **data modeling, analytical querying, and reporting practices**.
