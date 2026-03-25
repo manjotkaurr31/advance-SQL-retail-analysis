@@ -42,6 +42,10 @@ advanced-sql-retail-analysis
 │   ├── silver
 │   └── gold
 │
+├── powerBI
+│    ├── dashboard.png
+│    ├── dashboard.pbix
+│
 ├── results
 │   ├── customer_report.csv
 │   └── product_report.csv
@@ -161,12 +165,19 @@ These files contain **aggregated analytical outputs** derived from SQL views.
 
 ---
 
+# BI
+
+- Generated a dashboard (.pbix file) usng PowerBI available in `powerBI` folder.
+
+---
+
 # Technologies Used
 
 -  SQL Server  
 -  T-SQL  
 -  Dimensional Modeling  
 -  Analytical SQL (Window Functions, Aggregations, CTEs)
+-  PowerBI
 
 ---
 
