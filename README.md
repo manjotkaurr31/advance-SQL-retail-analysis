@@ -224,4 +224,4 @@ analysis/product_report.sql
 
 # Project Purpose
 
-This project demonstrates how SQL can transform **transactional retail data** into **structured analytical insights** using industry-style **data modeling, analytical querying, and reporting practices**. To see how i built the **T-SQL based DataWarehouse** for this project, visit [here](https://github/manjotkaurr31/DataWarehouse)
+This project demonstrates how SQL can transform **transactional retail data** into **structured analytical insights** using industry-style **data modeling, analytical querying, and reporting practices**. To see how i built the **T-SQL based DataWarehouse** for this project, visit [here](https://github.com/manjotkaurr31/DataWarehouse.git).
